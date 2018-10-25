@@ -24,7 +24,7 @@ namespace Elastos {
 		class SpvListener;
 
 
-		class CDidManager : public IDIDManager, public ElaWallet::ISubWalletCallback
+		class CDidManager : public IDIDManager/*, public ElaWallet::ISubWalletCallback*/
 		{
 		public:
 
@@ -45,28 +45,11 @@ namespace Elastos {
 			virtual bool  RegisterCallback(const std::string &id, IIdManagerCallback *callback);
 			virtual bool  UnregisterCallback(const std::string &id);
 
-			virtual void OnTransactionStatusChanged(
-				const std::string &txID,
-				const std::string &status,
-				const nlohmann::json &desc,
-				uint32_t blockHeight);
-
-			/**
-			 * Callback method fired when block begin synchronizing with a peer. This callback could be used to show progress.
-			 */
-			virtual void OnBlockSyncStarted();
-
-			/**
-			 * Callback method fired when best block chain height increased. This callback could be used to show progress.
-			 * @param currentBlockHeight is the of current block when callback fired.
-			 * @param progress is current progress when block height increased.
-			 */
-			virtual void OnBlockHeightIncreased(uint32_t currentBlockHeight, double progress);
-
-			/**
-			 * Callback method fired when block end synchronizing with a peer. This callback could be used to show progress.
-			 */
-			virtual void OnBlockSyncStopped();
+//			virtual void OnTransactionStatusChanged(
+//				const std::string &txID,
+//				const std::string &status,
+//				const nlohmann::json &desc,
+//				uint32_t blockHeight);
 
 		protected:
 			friend class SpvListener;

@@ -149,12 +149,12 @@ namespace Elastos {
 
 		}
 
-		void
-		CDidManager::OnTransactionStatusChanged(const std::string &txID, const std::string &status,
-											  const nlohmann::json &desc, uint32_t blockHeight) {
-
-			Log::getLogger()->info("CDidManager::OnTransactionStatusChanged begin id {} status {}  blockHeight {} desc {}"
-						   , txID, status, blockHeight, desc.dump());
+//		void
+//		CDidManager::OnTransactionStatusChanged(const std::string &txID, const std::string &status,
+//											  const nlohmann::json &desc, uint32_t blockHeight) {
+//
+//			Log::getLogger()->info("CDidManager::OnTransactionStatusChanged begin id {} status {}  blockHeight {} desc {}"
+//						   , txID, status, blockHeight, desc.dump());
 //			std::string path = desc["Path"].get<std::string>();
 //			nlohmann::json value;
 //			if (status == "Added" || status == "Updated") {
@@ -170,38 +170,18 @@ namespace Elastos {
 //
 //				removeIdItem(id, path, blockHeight);
 //			}
-			std::string id = desc["Id"].get<std::string>();
-			std::string path = "";//desc["Path"].get<std::string>();
-			if (_idListenerMap.find(id) != _idListenerMap.end()){
-
-				Log::getLogger()->info("CDidManager::OnTransactionStatusChanged find(id) ok id {} path {}  blockHeight {} "
-					, id, path, blockHeight);
-
-				_idListenerMap[id]->FireCallbacks(id, status, desc);
-			}
-			Log::getLogger()->info("CDidManager::OnTransactionStatusChanged end id {} path {}  blockHeight {} "
-				, id, path, blockHeight);
-		}
-
-		void CDidManager::OnBlockSyncStarted() {
-			Log::getLogger()->info("OnBlockSyncStarted...");
-		}
-
-		/**
-		 * Callback method fired when best block chain height increased. This callback could be used to show progress.
-		 * @param currentBlockHeight is the of current block when callback fired.
-		 * @param progress is current progress when block height increased.
-		 */
-		void CDidManager::OnBlockHeightIncreased(uint32_t currentBlockHeight, double progress) {
-			Log::getLogger()->info("OnBlockHeightIncreased currentBlockHeight = {}, progress = {}", progress);
-		}
-
-		/**
-		 * Callback method fired when block end synchronizing with a peer. This callback could be used to show progress.
-		 */
-		void CDidManager::OnBlockSyncStopped() {
-			Log::getLogger()->info("OnBlockSyncStopped...");
-		}
+//			std::string id = desc["Id"].get<std::string>();
+//			std::string path = "";//desc["Path"].get<std::string>();
+//			if (_idListenerMap.find(id) != _idListenerMap.end()){
+//
+//				Log::getLogger()->info("CDidManager::OnTransactionStatusChanged find(id) ok id {} path {}  blockHeight {} "
+//					, id, path, blockHeight);
+//
+//				_idListenerMap[id]->FireCallbacks(id, status, desc);
+//			}
+//			Log::getLogger()->info("CDidManager::OnTransactionStatusChanged end id {} path {}  blockHeight {} "
+//				, id, path, blockHeight);
+//		}
 
 		void CDidManager::initSpvModule() {
 
@@ -261,19 +241,20 @@ namespace Elastos {
 		ISubWallet * CDidManager::GetIDSubWallet(){
 			Log::getLogger()->info("GetIDSubWallet  begin");
 
-			std::vector<ISubWallet *> subWalletVec;
-			subWalletVec = _masterWallet->GetAllSubWallets();
-			ISubWallet * subWallet = NULL;
-
-			for (int i = 0; i < subWalletVec.size(); ++i) {
-				subWallet = subWalletVec[i];
-				if (subWallet->GetChainId() ==  IDCHAIN_NAME){
-					break;
-				}
-				subWallet = NULL;
-			}
-			Log::getLogger()->info("GetIDSubWallet subWallet int: {:p} end", ( void* )subWallet);//{0:x}
-			return subWallet;
+//			std::vector<ISubWallet *> subWalletVec;
+//			subWalletVec = _masterWallet->GetAllSubWallets();
+//			ISubWallet * subWallet = NULL;
+//
+//			for (int i = 0; i < subWalletVec.size(); ++i) {
+//				subWallet = subWalletVec[i];
+//				if (subWallet->GetChainId() ==  IDCHAIN_NAME){
+//					break;
+//				}
+//				subWallet = NULL;
+//			}
+//			Log::getLogger()->info("GetIDSubWallet subWallet int: {:p} end", ( void* )subWallet);//{0:x}
+//			return subWallet;
+			return nullptr;
 		}
 
 		bool CDidManager::initIdCache() {
@@ -291,22 +272,22 @@ namespace Elastos {
 			_idCache = IdCachePtr(new IdCache(idCachePath));
 
 
-			ISubWallet * subWallet = GetIDSubWallet();
-			if (subWallet){
+//			ISubWallet * subWallet = GetIDSubWallet();
+//			if (subWallet){
 				//新加
-				ISubWalletCallback *subCallback = dynamic_cast<ISubWalletCallback *>(this);
+//				ISubWalletCallback *subCallback = dynamic_cast<ISubWalletCallback *>(this);
 				//注册回调
-				subWallet->AddCallback(subCallback);
-				Log::getLogger()->debug("initIdCache  AddCallback {:p}", ( void* )subCallback);
+//				subWallet->AddCallback(subCallback);
+//				Log::getLogger()->debug("initIdCache  AddCallback {:p}", ( void* )subCallback);
 
 
 
-				nlohmann::json transJson;
-				nlohmann::json allTransJsonRet = subWallet->GetAllTransaction(0
-					, 10000 , "");
-				transJson = allTransJsonRet["Transactions"];
-
-				std::vector<std::string> loAllIdVec = _iidAgent->GetAllIds();
+//				nlohmann::json transJson;
+//				nlohmann::json allTransJsonRet = subWallet->GetAllTransaction(0
+//					, 10000 , "");
+//				transJson = allTransJsonRet["Transactions"];
+//
+//				std::vector<std::string> loAllIdVec = _iidAgent->GetAllIds();
 
 //				Transaction transaction;
 //				for (nlohmann::json::const_iterator it = transJson.begin(); it != transJson.end(); it++) {
@@ -339,7 +320,7 @@ namespace Elastos {
 //												payload->getId(), payload->getPath(), blockHeight, jsonToSave.dump());
 //					}
 //				}
-			}
+//			}
 
 			nlohmann::json jsonRet = _idCache->GetAllKey();
 

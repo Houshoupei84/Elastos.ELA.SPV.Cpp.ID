@@ -1,7 +1,7 @@
 [submodule "ThirdParty/Elastos.ELA.SPV.Cpp"]
 	path = ThirdParty/Elastos.ELA.SPV.Cpp
 	url = git@github.com:elastos/Elastos.ELA.SPV.Cpp.git
-	branch = dev
+	branch = release_v0.3.0
 [submodule "ThirdParty/leveldb"]
 	path = ThirdParty/leveldb
 	url = https://github.com/google/leveldb.git
